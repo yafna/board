@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UIUser {
-    private String uuid;
-    private String name;
-    private String team;
+public class ActionResult {
+    public boolean result;
+    public String message;
 }

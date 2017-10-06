@@ -16,6 +16,8 @@ plugins {
 dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
 
+    compile project (':db:db-model')
+    compile project (':db:db-service')
     compile 'org.slf4j:slf4j-api:1.7.16'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.7.RELEASE'
 

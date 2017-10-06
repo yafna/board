@@ -14,10 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "User")
-public class User extends PersistentObject {
-    @Column(name = "name", nullable = false)
-    private String name;
-    @Column(name = "team")
-    private String team;
+@Table(name = "history")
+public class History extends PersistentObject {
+    @Column(name = "event")
+    private String event;
 }

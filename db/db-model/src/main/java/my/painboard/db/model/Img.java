@@ -14,10 +14,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "User")
-public class User extends PersistentObject {
-    @Column(name = "name", nullable = false)
-    private String name;
-    @Column(name = "team")
-    private String team;
+@Table(name = "img")
+public class Img extends PersistentObject {
+    @Column(name = "level", nullable = false)
+    private Integer level;
+    @Column(name = "path", nullable = false)
+    private String path;
+    @Column(name = "desc")
+    private String desc;
 }

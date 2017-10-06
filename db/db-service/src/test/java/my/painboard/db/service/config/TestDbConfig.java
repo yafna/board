@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
-@ComponentScan(basePackages = "fmid.db.service")
+@ComponentScan(basePackages = "my.painboard.db.service")
 @PropertySource("classpath:db-test.properties")
 public class TestDbConfig {
     @Value("${spring.datasource.url}")
@@ -42,7 +42,7 @@ public class TestDbConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("fmid.db.service", "model");
+        sessionFactory.setPackagesToScan("my.painboard.db.service", "my.painboard.db.model");
         sessionFactory.setHibernateProperties(additionalProperties());
 
         return sessionFactory;

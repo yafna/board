@@ -13,6 +13,7 @@
 package my.painboard.db.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
@@ -36,5 +37,8 @@ public abstract class PersistentObject implements Serializable {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @Column(name = "uuid", unique = true)
     private String uuid;
-
+    @Column(name = "born", nullable = false)
+    private Date born;
+    @Column(name = "dead", nullable = true)
+    private Date dead;
 }

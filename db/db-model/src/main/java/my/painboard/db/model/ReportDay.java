@@ -1,6 +1,5 @@
 package my.painboard.db.model;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -14,10 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "User")
-public class User extends PersistentObject {
-    @Column(name = "name", nullable = false)
-    private String name;
-    @Column(name = "team")
-    private String team;
+@Table(name = "reportday")
+public class ReportDay extends PersistentObject {
+    @Column(name = "day", nullable = false)
+    private int day;
+    @Column(name = "year", nullable = false)
+    private int year;
 }
