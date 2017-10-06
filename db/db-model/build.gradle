@@ -5,11 +5,11 @@ apply plugin: 'idea'
 
 dependencies {
     dependencies {
-        compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
         // Annotation processor to generate entity metamodels
-        compileOnly "org.hibernate:hibernate-jpamodelgen:${hibernateVersion}"
-        compile group: 'javax.persistence', name: 'persistence-api', version: '1.0.2'
-        compile group: 'org.eclipse.persistence', name: 'javax.persistence', version: '2.1.1'
+        compileOnly 'org.projectlombok:lombok:1.16.8'
+        compileOnly "org.hibernate:hibernate-jpamodelgen:5.2.9.Final"
+        compileOnly group: 'org.hibernate', name: 'hibernate-core', version: '5.2.9.Final'
+        compileOnly group: 'org.eclipse.persistence', name: 'javax.persistence', version: '2.1.1'
 
     }
 

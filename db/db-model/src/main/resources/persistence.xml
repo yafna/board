@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
-
-    <persistence-unit transaction-type="RESOURCE_LOCAL" name="default">
-
+    <persistence-unit transaction-type="JTA" name="default">
         <provider>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</provider>
 
         <class>my.painboard.db.model.User</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
-        
-        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
-        
     </persistence-unit>
 </persistence>

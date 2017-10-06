@@ -1,2 +1,5 @@
 rootProject.name = 'painboard'
+include ':service'
+include ':db:db-service'
+include ':db:db-model'
 
