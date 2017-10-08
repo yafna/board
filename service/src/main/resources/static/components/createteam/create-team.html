@@ -1,0 +1,18 @@
+<div class=" upper-gap left-gap bottom-gap col-md-12" ng-controller="CreateTeamCtrl as ctrl">
+    <form name="form" class="form-horizontal" novalidate>
+        <legend>User creation</legend>
+        <input type="hidden" name="uuid" ng-model="ctrl.team.uuid">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text"  id="name" class="form-control col-md-4" ng-model="ctrl.team.name" placeholder="Name" required>
+        </div>
+        <div class="form-group">
+            <!--ng-if vs ng-show is a tricky question, please, keep in mind, that: http://www.jarchitects.be/ng-if-versus-ng-show/ -->
+            <span  ng-if="ctrl.result">Result: {{ctrl.result}}</span>
+        </div>
+        <div class="col-md-7">
+            <a  class="btn btn-default" type="button"  href="#/adminview">cancel</a>
+            <input class="btn bg-primary" ng-click="ctrl.send()" type="submit" value="Submit">
+        </div>
+    </form>
+</div>

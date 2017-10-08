@@ -44,7 +44,6 @@ public class DBConfig {
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("my.painboard.db.service", "my.painboard.db.model");
         sessionFactory.setHibernateProperties(additionalProperties());
-
         return sessionFactory;
     }
 
@@ -67,7 +66,8 @@ public class DBConfig {
 
     Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+//        properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         return properties;
     }

@@ -9,7 +9,6 @@ import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 import my.painboard.db.model.Img;
-import my.painboard.db.model.Img;
 import my.painboard.db.model.Img_;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
@@ -22,7 +21,7 @@ public class ImgService {
     @PersistenceContext
     private Session em;
 
-    public String create(String path, int level, String desc){
+    public String create(String path, int level, String desc) {
         Img img = new Img();
         img.setBorn(new Date());
         img.setPath(path);
@@ -30,6 +29,18 @@ public class ImgService {
         img.setDesc(desc);
         em.saveOrUpdate(img);
         return img.getUuid();
+    }
+
+    public void update(String uuid, String path, int level, String desc) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaUpdate<Img> q = cb.createCriteriaUpdate(Img.class);
+        Root<Img> c = q.from(Img.class);
+        q.set(c.get(Img_.modified), new Date())
+                .set(c.get(Img_.desc), desc)
+                .set(c.get(Img_.level), level)
+                .set(c.get(Img_.path), path)
+                .where(cb.equal(c.get(Img_.uuid), uuid));
+        em.createQuery(q).executeUpdate();
     }
 
     public void remove(String uuid) {

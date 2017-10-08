@@ -1,0 +1,70 @@
+.footer-height{
+    height: 20px;
+}
+.upper-gap{
+    margin-top: 15px;
+}
+.right-gap{
+    margin-right: 10px;;
+}
+
+.left-gap{
+    margin-left: 10px;;
+}
+
+.bottom-gap{
+    margin-bottom: 10px;
+}
+
+.mouse-pointer{
+    cursor: pointer;
+}
+
+.full-width{
+    width: 100%;
+}
+.plus-btn-width{
+    width: 28px;
+}
+
+.full-height{
+    height: 100vh;
+}
+
+.grey-dark{
+    background: gray;
+}
+.spinners {
+    display: inline-block;
+    border: solid 0px #000;
+    border-radius: 15px;
+    margin-left: 15px;
+    padding: 15px;
+    width: 100px;
+    vertical-align: top;
+}
+
+.spinner {
+    display: block;
+    margin-top: 10px;
+    width: 75px;
+    height: 75px;
+    border: solid 1px #666;
+    box-shadow: 2px 2px 2px #777;
+}
+.white{
+    background: white;
+}
+
+.success{
+    color: green;
+}
+
+.warning{
+    color: orange;
+}
+
+.error{
+    color: red;
+}
+

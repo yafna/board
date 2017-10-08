@@ -26,7 +26,7 @@ public class ReportDayService {
         return reportDay.getUuid();
     }
 
-    public List<ReportDay> getDays() {
+    public List<ReportDay> list() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<ReportDay> q = cb.createQuery(ReportDay.class);
         Root<ReportDay> c = q.from(ReportDay.class);
