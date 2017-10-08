@@ -23,5 +23,6 @@ appInstalled
                 .error(function (data, status, headers, config) {
                     self.result = "failure message: " + JSON.stringify({data: data});
                 });
+             $location.path( "/adminview" );
         };
     }]);

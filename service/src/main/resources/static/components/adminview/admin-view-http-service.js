@@ -14,14 +14,14 @@ angular.module('myApp.adminviewSrv', [])
             return $http.get("/users/list");
         }
         function loadTeams() {
-            return $http.get("/teams/list");
+            return $http.get("/team/list");
         }
         function loadImgs() {
             return $http.get("/imgs/list");
         }
 
         function removeTeam(uuid) {
-            return $http.get("/teams/remove/" + uuid);
+            return $http.get("/team/remove/" + uuid);
         }
         function removeUser(uuid) {
             return $http.get("/users/remove/" + uuid);

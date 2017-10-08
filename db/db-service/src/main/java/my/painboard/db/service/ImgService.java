@@ -2,6 +2,7 @@ package my.painboard.db.service;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -10,7 +11,6 @@ import javax.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 import my.painboard.db.model.Img;
 import my.painboard.db.model.Img_;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ImgService {
     @PersistenceContext
-    private Session em;
+    private EntityManager em;
 
     public String create(String path, int level, String desc) {
         Img img = new Img();
@@ -27,7 +27,7 @@ public class ImgService {
         img.setPath(path);
         img.setLevel(level);
         img.setDesc(desc);
-        em.saveOrUpdate(img);
+        em.persist(img);
         return img.getUuid();
     }
 

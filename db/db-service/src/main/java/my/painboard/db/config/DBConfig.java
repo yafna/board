@@ -5,17 +5,18 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@EntityScan("my.painboard.db.model")
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
 @ComponentScan(basePackages = "my.painboard.db.service")
@@ -33,19 +34,31 @@ public class DBConfig {
     @Value("${spring.datasource.driverClassName}")
     private String dbDriver;
 
+
+//    @Bean
+//    public EntityManagerFactory entityManagerFactory() {
+//
+////        LocalContainerEntityManagerFactoryBean factory = null;
+////        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+////        vendorAdapter.setGenerateDdl(true);
+////        vendorAdapter.setShowSql(true);
+//        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+//        return emf;
+//    }
+
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("my.painboard.db.service", "my.painboard.db.model");
-        sessionFactory.setHibernateProperties(additionalProperties());
-        return sessionFactory;
-    }
+//    @Bean
+//    public LocalSessionFactoryBean sessionFactory() {
+//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+//        sessionFactory.setDataSource(dataSource());
+//        sessionFactory.setPackagesToScan("my.painboard.db.service", "my.painboard.db.model");
+//        sessionFactory.setHibernateProperties(additionalProperties());
+//        return sessionFactory;
+//    }
 
     @Bean
     public DataSource dataSource() {

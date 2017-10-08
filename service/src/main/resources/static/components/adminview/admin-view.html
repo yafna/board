@@ -1,10 +1,10 @@
-<div class="col-md-12 upper-gap" ng-controller="AdminViewCtrl as actrl">
+<div class="col-md-12 upper-gap"  ng-init="actrl.preLoad()" ng-controller="AdminViewCtrl as actrl">
     <table class="col-md-12 table table-striped upper-gap">
         <tr>
             <th> Name  </th>
             <th>Action</th>
         </tr>
-        <tr ng-repeat="item in actrl.teams">
+        <tr ng-repeat="item in $teams">
             <td>
                 {{item.name}}
             </td>
@@ -14,10 +14,6 @@
             </td>
         </tr>
     </table>
-    <div class="bottom-gap">
-        <spinner class="col-md-offset-4" id="team-table-loading" on-register-complete="actrl.loadTeamsTable($spinnerService)"
-                 size="small"></spinner>
-    </div>
     <div>
         <a href="#/modifyTeam"> + Add team</a>
     </div>
@@ -29,7 +25,7 @@
             <th> Team  </th>
             <th>Action</th>
         </tr>
-        <tr ng-repeat="item in actrl.users">
+        <tr ng-repeat="item in $users">
             <td>
                 {{item.name}}
             </td>
@@ -42,10 +38,6 @@
             </td>
         </tr>
     </table>
-    <div class="bottom-gap">
-        <spinner class="col-md-offset-4" id="user-table-loading" on-register-complete="actrl.loadUsersTable($spinnerService)"
-                 size="small"></spinner>
-    </div>
     <div>
         <a href="#/modifyUser"> + Add user</a>
     </div>

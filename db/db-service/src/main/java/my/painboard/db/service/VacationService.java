@@ -1,8 +1,8 @@
 package my.painboard.db.service;
 
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class VacationService {
 
     @PersistenceContext
-    private Session em;
+    private EntityManager em;
 
 }

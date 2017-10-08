@@ -39,6 +39,8 @@ public abstract class PersistentObject implements Serializable {
     private String uuid;
     @Column(name = "born", nullable = false)
     private Date born;
-    @Column(name = "dead", nullable = true)
+    @Column(name = "modified")
+    private Date modified;
+    @Column(name = "dead")
     private Date dead;
 }

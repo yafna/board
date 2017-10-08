@@ -6,11 +6,11 @@ angular.module('myApp.userModifyFactory', [])
             var dataObj = {
                 uuid: uuid,
                 name: name,
-                team: team;
+                team: team
             };
             return $http({
                 method: 'POST',
-                url: '/user/modify',
+                url: '/users/modify',
                 data: dataObj,
                 headers: {
                     'Content-Type': 'application/json'

@@ -2,13 +2,13 @@ package my.painboard.db.service;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 import my.painboard.db.model.History;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,13 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class HistoryService {
     @PersistenceContext
-    private Session em;
+    private EntityManager em;
 
     public String create(String event) {
         History history = new History();
         history.setBorn(new Date());
         history.setEvent(event);
-        em.saveOrUpdate(history);
+        em.persist(history);
         return history.getUuid();
     }
 

@@ -2,6 +2,7 @@ package my.painboard.db.service;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -10,7 +11,6 @@ import javax.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 import my.painboard.db.model.User;
 import my.painboard.db.model.User_;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserService {
     @PersistenceContext
-    private Session em;
+    private EntityManager em;
     @Autowired
     private TeamService teamService;
 
@@ -29,7 +29,7 @@ public class UserService {
         user.setName(name);
         user.setTeam(teamService.getByUuid(teamUuid));
         user.setBorn(new Date());
-        em.saveOrUpdate(user);
+        em.persist(user);
         return user.getUuid();
     }
 

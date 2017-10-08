@@ -5,22 +5,16 @@ angular.module('myApp.viewSrv', [])
     .service('viewHttpFactory', function ($http) {
          // http communication for the page
         return({
-            loadUsers: loadUsers,
-            loadImgs: loadImgs
+            loadTable: loadTable,
+            dostatus: dostatus
         });
 
-        function loadUsers() {
-            return $http.get("/users/list");
+        function loadTable() {
+            return $http.get("/calendar/all");
         }
 
-        function modify () {
-            return $http.get("/test/available/vendors");
+        function dostatus(userid, dayId, imgid) {
+            return $http.get("/calendar/register/" + userid + "/" + dayId + "/" + imgid);
         }
 
-        function getProducts() {
-            return $http.get("/test/available/products");
-        }
-        function getRecipe(type) {
-            return $http.get("/test/available/get/recipe/" + type);
-        }
     });

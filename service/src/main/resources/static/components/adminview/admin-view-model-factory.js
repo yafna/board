@@ -1,5 +1,5 @@
 'use strict';
-angular.module('myApp.adminviewTableFactory', [])
+angular.module('myApp.adminviewMF', [])
     .factory('adminviewMF', function (adminviewHS, $modal) {
         var page = {};
         page.loadUsers = function () {

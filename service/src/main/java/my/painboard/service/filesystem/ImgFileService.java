@@ -1,8 +1,8 @@
-package my.painboard.service.filestorage;
+package my.painboard.service.filesystem;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public class ImgService {
+public class ImgFileService {
 
 }

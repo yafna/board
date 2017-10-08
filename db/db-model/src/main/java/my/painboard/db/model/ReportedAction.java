@@ -28,4 +28,6 @@ public class ReportedAction extends PersistentObject {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "reportday_id", nullable = false)
     private ReportDay reportDay;
+    @Column(name = "year")
+    private String description;
 }

@@ -3,12 +3,11 @@ angular.module('myApp.viewTableFactory', [])
     .factory('viewModelFactory', function (viewHttpFactory, $modal) {
         var page = {};
 
-        page.loadUsers = function () {
-            return viewHttpFactory.loadUsers();
+        page.loadTable = function () {
+            return viewHttpFactory.loadTable();
         };
-
-        page.loadImgs = function () {
-            return viewHttpFactory.loadImgs();
-        };
+        page.dostatus = function(userid, dayId, imgid) {
+            return viewHttpFactory.dostatus(userid, dayId, imgid);
+        }
         return page;
     });

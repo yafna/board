@@ -5,11 +5,12 @@
         <provider>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</provider>
 
         <class>my.painboard.db.model.User</class>
+        <class>my.painboard.db.model.Team</class>
         <class>my.painboard.db.model.ReportDay</class>
         <class>my.painboard.db.model.Img</class>
         <class>my.painboard.db.model.ReportedAction</class>
         <class>my.painboard.db.model.History</class>
-
+        <class>my.painboard.db.model.Vacation</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
     </persistence-unit>
 </persistence>
