@@ -13,32 +13,35 @@
                     {{item.user.name}}
                 </td>
                 <td ng-repeat="step in item.statusday track by $index">
-                    <span ng-if="step.status == 'TOFILL'">
-
+                    <span ng-if="step.status == 'TOFILL' || step.status == 'IMAGE'" height="20" width="20">
                         <div class="dropdown dropdown-append-to-body">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle = "dropdown">Select <span class="caret"></span>
+                            <button  ng-if="step.status == 'IMAGE'" class="smiley-size dropdown-toggle" data-toggle="dropdown" >
+                                   <img ng-src="/components/smiles/{{step.image.name}}" alt="Smiley face" height="28" width="28">
+                                   <span class="caret"></span>
+                            </button>
+                            <button ng-if="step.status == 'TOFILL'" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    Select <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li  ng-repeat="imgitem in actrl.paintable.imgs">
-                                   <input class="btn bg-primary" ng-click="actrl.dostatus(imgitem.uuid,item.user.uuid,step.day.uuid)" >
-                                        <img ng-src="/components/smiles/{{imgitem.name}}" alt="Smiley face" height="42" width="42">
-                                    </input>
+                                <li ng-repeat="imgitem in actrl.paintable.imgs" style="width:40px">
+                                        <img ng-src="/components/smiles/{{imgitem.name}}"
+                                             ng-click="actrl.dostatus(imgitem.uuid,item.user.uuid,step.day.uuid)"
+                                             alt="Smiley face" height="28" width="28">
                                 </li>
                             </ul>
                         </div>
                     </span>
                     <span ng-if="step.status == 'EMPTY'"></span>
-                    <span ng-if="step.status == 'HOLIDAY'">hh</span>
-                    <span ng-if="step.status == 'IMAGE'">
-                         <img ng-src="/components/smiles/{{step.image.name}}" alt="Smiley face" height="17" width="17">
-                    </span>
+                    <div ng-if="step.status == 'HOLIDAY'" class="alert alert-info"></div>
                 </td>
             </tr>
         </table>
     </div>
+    <h6>Possible options: </h6>
     <div>
         <div ng-repeat="item in actrl.paintable.imgs">
-            <img ng-src="/components/smiles/{{item.name}}" alt="Smiley face" height="42" width="42">
+            <img ng-src="/components/smiles/{{item.name}}" alt="Smiley face" height="30" width="30">
+            {{item.description}}
         </div>
     </div>
 </div>

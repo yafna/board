@@ -34,7 +34,7 @@ public class ImgController {
     }
 
 //    @RequestMapping(method = RequestMethod.POST)
-//    public void create(MyObject myObject, MultipartFile file) {
+//    public void save(MyObject myObject, MultipartFile file) {
 //        //delegation to the correct service
 //    }
 

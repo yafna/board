@@ -1,16 +1,10 @@
 package my.painboard.service.controller;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import my.painboard.db.model.Img;
 import my.painboard.db.model.ReportDay;
 import my.painboard.db.model.ReportedAction;
 import my.painboard.db.model.User;
+import my.painboard.db.service.HistoryService;
 import my.painboard.db.service.ImgService;
 import my.painboard.db.service.ReportActionService;
 import my.painboard.db.service.ReportDayService;
@@ -29,6 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @RestController
 @RequestMapping("/calendar")
 public class CalendarController {
@@ -42,18 +42,24 @@ public class CalendarController {
     private ReportDayService reportDayService;
     @Autowired
     private ReportActionService reportActionService;
+    @Autowired
+    private HistoryService historyService;
 
     private boolean done = false;
 
     public void doprefill() {
         String teamid = teamService.create("daas reboot");
-        userService.create("N", teamid);
-        userService.create("V", teamid);
-        userService.create("T", teamid);
+        userService.create("Nadea", teamid);
+        userService.create("Spyros", teamid);
+        userService.create("Heider", teamid);
+//        userService.create("", teamid);
         imgService.create("0.png", 10, "happy");
         imgService.create("1.png", 5, "medium");
         imgService.create("2.png", 0, "not happy");
-        reportDayService.create(LocalDate.now().getDayOfYear(),LocalDate.now().getYear());
+        LocalDate localDate = LocalDate.now().minusDays(15);
+        for (int i = 0; i <= 17; ++i) {
+            reportDayService.create(localDate.plusDays(i).getDayOfYear(), LocalDate.now().getYear());
+        }
         done = true;
     }
 
@@ -62,7 +68,7 @@ public class CalendarController {
         Collections.sort(days, (o1, o2) -> o1.getYear() != o2.getYear() ? o1.getYear() - o2.getYear() : o1.getDay() - o2.getDay());
         if (days.get(days.size() - 1).getDay() < LocalDate.now().plusDays(30).getDayOfYear()) {
             for (int i = days.get(days.size() - 1).getDay() + 1; i < LocalDate.now().plusDays(30).getDayOfYear(); ++i) {
-                 reportDayService.create(i,LocalDate.now().getYear());
+                reportDayService.create(i, LocalDate.now().getYear());
             }
         }
     }
@@ -74,13 +80,12 @@ public class CalendarController {
         if (!done) {
             doprefill();
         }
-         fillDays();
-        LocalDate localDate = LocalDate.now();
-        Integer day = LocalDate.now().getDayOfMonth();
+        fillDays();
+        LocalDate localDate = LocalDate.now().minusDays(3);
         List<UIReportDay> days = new ArrayList<>();
         for (int i = 0; i <= 14; ++i) {
             ReportDay rd = reportDayService.getDay(localDate.plusDays(i).getDayOfYear(), localDate.getYear());
-            LocalDate d1= LocalDate.ofYearDay(rd.getYear(), rd.getDay());
+            LocalDate d1 = LocalDate.ofYearDay(rd.getYear(), rd.getDay());
             days.add(new UIReportDay(rd.getUuid(), d1.getDayOfMonth()));
         }
         UITable table = new UITable();
@@ -90,7 +95,6 @@ public class CalendarController {
             imgs.add(new UIImage(img.getUuid(), img.getDesc(), img.getLevel(), img.getPath()));
         }
         table.setImgs(imgs);
-        DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
         List<User> users = userService.list();
         for (User user : users) {
             UIUserState uiUserState = new UIUserState();
@@ -99,20 +103,18 @@ public class CalendarController {
                 UIStatusDay statusDay = new UIStatusDay();
                 ReportDay rd = reportDayService.getDay(localDate.plusDays(i).getDayOfYear(), localDate.getYear());
                 ReportedAction action = reportActionService.getByDayAndUser(user.getUuid(), rd.getUuid());
-                if(action != null){
+                if (action != null) {
                     statusDay.setStatus(UIStatus.IMAGE);
                     statusDay.setImage(new UIImage(action.getImg().getUuid(), action.getImg().getDesc(), action.getImg().getLevel(), action.getImg().getPath()));
-                }else  if(i == 0) {
+                } else if (localDate.plusDays(i).getDayOfWeek() == DayOfWeek.SATURDAY || localDate.plusDays(i).getDayOfWeek() == DayOfWeek.SUNDAY) {
+                    statusDay.setStatus(UIStatus.HOLIDAY);
+                } else if (localDate.plusDays(i).getDayOfYear() <= LocalDate.now().getDayOfYear()) {
                     statusDay.setStatus(UIStatus.TOFILL);
-                }else {
-                    if (localDate.plusDays(i).getDayOfWeek() == DayOfWeek.SATURDAY || localDate.plusDays(i).getDayOfWeek() == DayOfWeek.SUNDAY) {
-                        statusDay.setStatus(UIStatus.HOLIDAY);
-                    } else {
-                        statusDay.setStatus(UIStatus.EMPTY);
-                    }
+                } else {
+                    statusDay.setStatus(UIStatus.EMPTY);
                 }
 
-                LocalDate d1= LocalDate.ofYearDay(rd.getYear(), rd.getDay());
+                LocalDate d1 = LocalDate.ofYearDay(rd.getYear(), rd.getDay());
                 statusDay.setDay(new UIReportDay(rd.getUuid(), d1.getDayOfMonth()));
                 table.getDates().add(localDate.plusDays(i).getDayOfMonth());
                 uiUserState.getStatusday().add(statusDay);
@@ -124,9 +126,7 @@ public class CalendarController {
 
     @RequestMapping("register/{userId}/{dayId}/{imgId}")
     public void register(@PathVariable String userId, @PathVariable String dayId, @PathVariable String imgId) {
-        System.out.println("userId = " + userId);
-        System.out.println("dayId = " + dayId);
-        System.out.println("imgId = " + imgId);
-        reportActionService.create(userId, dayId, imgId);
+        historyService.create("userId = " + userId + "dayId = " + dayId + "imgId = " + imgId);
+        reportActionService.save(userId, dayId, imgId);
     }
 }
