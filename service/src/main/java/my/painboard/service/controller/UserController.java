@@ -1,7 +1,6 @@
 package my.painboard.service.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import my.painboard.db.model.User;
 import my.painboard.db.service.UserService;
 import my.painboard.service.dto.ActionResult;
@@ -15,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -32,18 +35,26 @@ public class UserController {
     List<UIUser> list() {
         List<UIUser> res = new ArrayList<>();
         for (User item : userService.list()) {
-            res.add(new UIUser(item.getUuid(), item.getName(), item.getTeam().getName()));
+            res.add(new UIUser(item));
         }
         return res;
+    }
+
+    @RequestMapping("/get/{uuid}")
+    public
+    @ResponseBody
+    UIUser get(@PathVariable String uuid) {
+        log.debug("Team requested {}", uuid);
+        return new UIUser(userService.getByUuid(uuid));
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
     public
     @ResponseBody
     ActionResult addUser(@RequestBody UIUser user) {
-        if(user.getUuid() == null) {
+        if (user.getUuid() == null) {
             userService.create(user.getName(), user.getTeam());
-        }else {
+        } else {
             userService.update(user.getUuid(), user.getName(), user.getTeam());
         }
         return new ActionResult(true, "Seems that ok");

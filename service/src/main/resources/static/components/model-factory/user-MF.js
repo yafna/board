@@ -17,12 +17,14 @@ angular.module('myApp.userModifyFactory', [])
                 }
             });
         };
-        userModel.empty = function(){
-            return {
-                uuid : "",
-                name : "",
-                team : ""
-            }
+        userModel.loadUsers = function () {
+            return $http.get("/users/list");
+        };
+        userModel.getUser = function (uuid) {
+            return $http.get("/user/get/" + uuid);
+        };
+        userModel.removeUser = function (uuid) {
+            return $http.get("/users/remove/" + uuid);
         };
         return userModel;
     });

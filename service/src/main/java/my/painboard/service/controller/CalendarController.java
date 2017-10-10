@@ -1,5 +1,6 @@
 package my.painboard.service.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import my.painboard.db.model.Img;
 import my.painboard.db.model.ReportDay;
 import my.painboard.db.model.ReportedAction;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/calendar")
 public class CalendarController {
@@ -49,9 +51,9 @@ public class CalendarController {
 
     public void doprefill() {
         String teamid = teamService.create("daas reboot");
-        userService.create("Nadea", teamid);
-        userService.create("Spyros", teamid);
-        userService.create("Heider", teamid);
+        userService.create("N", teamid);
+        userService.create("S", teamid);
+        userService.create("H", teamid);
 //        userService.create("", teamid);
         imgService.create("0.png", 10, "happy");
         imgService.create("1.png", 5, "medium");
@@ -126,6 +128,7 @@ public class CalendarController {
 
     @RequestMapping("register/{userId}/{dayId}/{imgId}")
     public void register(@PathVariable String userId, @PathVariable String dayId, @PathVariable String imgId) {
+        log.debug("register request: userId = " + userId + "dayId = " + dayId + "imgId = " + imgId );
         historyService.create("userId = " + userId + "dayId = " + dayId + "imgId = " + imgId);
         reportActionService.save(userId, dayId, imgId);
     }

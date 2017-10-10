@@ -4,17 +4,26 @@ var appInstalled = angular.module('myApp.createteam', ['ngRoute']);
 
 appInstalled
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/modifyTeam', {
+        $routeProvider
+        .when('/modifyTeam', {
             templateUrl: 'components/createteam/create-team.html',
             controller: 'CreateTeamCtrl'
+        })
+        .when('/modifyTeam/:id', {
+             templateUrl: 'components/createteam/create-team.html',
+             controller: 'CreateTeamCtrl'
         });
     }])
 
-    .controller('CreateTeamCtrl', ['teamModifyFactory', function (teamModifyFactory) {
+    .controller('CreateTeamCtrl', function (teamModifyFactory, $routeParams, $location) {
         var self = this;
-
         self.result = "";
-
+        if($routeParams.id !== undefined){
+            self.team = teamModifyFactory.getTeam($routeParams.id).then(
+                function (resp){
+                     self.team = resp.data;
+            })
+        }
         self.send = function () {
             teamModifyFactory.saveTeam(self.team.uuid, self.team.name)
                 .success(function (data, status, headers, config) {
@@ -25,4 +34,4 @@ appInstalled
                 });
              $location.path( "/adminview" );
         };
-    }]);
+    });

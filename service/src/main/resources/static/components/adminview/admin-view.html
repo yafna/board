@@ -1,44 +1,77 @@
 <div class="col-md-12 upper-gap"  ng-init="actrl.preLoad()" ng-controller="AdminViewCtrl as actrl">
-    <table class="col-md-12 table table-striped upper-gap">
-        <tr>
-            <th> Name  </th>
-            <th>Action</th>
-        </tr>
-        <tr ng-repeat="item in $teams">
-            <td>
-                {{item.name}}
-            </td>
-            <td>
-                <a href="#/modifyTeam">Modify</a> /
-                <button ng-click="actrl.removeTeam(item.id)" type="button" class="btn btn-primary">Remove</button>
-            </td>
-        </tr>
-    </table>
-    <div>
-        <a href="#/modifyTeam"> + Add team</a>
+    <div class="col-md-4">
+        <h6>Images</h6>
+        <table class="col-md-12 table table-striped upper-gap">
+            <tr>
+                <th> Img  </th>
+                <th> Description </th>
+                <th> Happiness level</th>
+                <th> Action </th>
+            </tr>
+            <tr ng-repeat="item in actrl.images">
+                <td>
+                    {{item.description}}
+                </td>
+                <td>
+                    {{item.description}}
+                </td>
+                <td>
+                    {{item.description}}
+                </td>
+                <td>
+                    <a href="#/modifyImage">Modify</a> /
+                    <button ng-click="actrl.removeImage(item.id)" type="button" class="btn btn-primary">Remove</button>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <a href="#/modifyUser"> + Add user</a>
+        </div>
     </div>
-
-
-    <table class="col-md-12 table table-striped upper-gap">
-        <tr>
-            <th> Name  </th>
-            <th> Team  </th>
-            <th>Action</th>
-        </tr>
-        <tr ng-repeat="item in $users">
-            <td>
-                {{item.name}}
-            </td>
-            <td>
-                {{item.team}}
-            </td>
-            <td>
-                <a href="#/modifyTeam">Modify</a> /
-                <button ng-click="actrl.removeUser(item.id)" type="button" class="btn btn-primary">Remove</button>
-            </td>
-        </tr>
-    </table>
-    <div>
-        <a href="#/modifyUser"> + Add user</a>
+    <div class="col-md-3 right-gap">
+        <h6>Teams</h6>
+        <table class="col-md-12 table table-striped upper-gap">
+            <tr>
+                <th> Name  </th>
+                <th>Action</th>
+            </tr>
+            <tr ng-repeat="item in actrl.teams">
+                <td>
+                    {{item.name}}
+                </td>
+                <td>
+                    <a href="#/modifyTeam/{{item.uuid}}"><span class="glyphicon glyphicon-pencil"></span></a> /
+                    <a href="" ng-click="actrl.removeTeam(item.uuid)"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <a href="#/modifyTeam"> + Add team</a>
+        </div>
+    </div>
+    <div class="col-md-4 right-gap">
+    <h6>People</h6>
+        <table class="col-md-12 table table-striped upper-gap">
+            <tr>
+                <th> Name  </th>
+                <th> Team  </th>
+                <th>Action</th>
+            </tr>
+            <tr ng-repeat="item in actrl.users">
+                <td>
+                    {{item.name}}
+                </td>
+                <td>
+                    {{item.team}}
+                </td>
+                <td>
+                    <a href="#/modifyUser/{{item.uuid}}"><span class="glyphicon glyphicon-pencil"></span></a> /
+                    <button ng-click="actrl.removeUser(item.id)" type="button" class="btn btn-primary">Remove</button>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <a href="#/modifyUser"> + Add user</a>
+        </div>
     </div>
 </div>

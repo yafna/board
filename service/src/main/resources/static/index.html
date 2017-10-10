@@ -13,19 +13,19 @@
 </head>
 <body>
 <div class="row grey-dark">
-    <!--<div class="row">-->
-        <!--<nav class="col-md-2 col-xs-3-->
-         <!--upper-gap white right-gap left-gap full-height">-->
-            <!--<ul class="nav nav-pills nav-stacked">-->
-                <!--<li><a href="#/calendarview">board</a></li>-->
-                <!--<li><a href="#/adminview">admin</a></li>-->
-                <!--<li><a href="#/statistics">statistics</a></li>-->
-            <!--</ul>-->
-        <!--</nav>-->
-        <div class="col-md-12 col-xs-12 upper-gap white ">
+    <div class="row">
+        <nav class="col-md-2 col-xs-3
+         upper-gap white right-gap left-gap full-height">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="#/calendarview">board</a></li>
+                <li><a href="#/adminview">admin</a></li>
+                <li><a href="#/statistics">statistics</a></li>
+            </ul>
+        </nav>
+        <div class="col-md-10 col-xs-9 upper-gap white ">
             <div ng-view></div>
         </div>
-    <!--</div>-->
+    </div>
 </div>
 <!--<div class="navbar navbar-default navbar-fixed-bottom footer-height">-->
     <!--<div class="col-md-2 pull-right left-gap"><a href="#">Send feedback</a> | <a href="#">About</a></div>-->
@@ -41,17 +41,16 @@
 <script src="bower_components/spinner/angular-spinner.js"></script>
 
 <script  type="text/javascript" src="app.js"></script>
+<script  type="text/javascript"  src="components/model-factory/image-MF.js"></script>
+<script  type="text/javascript"  src="components/model-factory/user-MF.js"></script>
+<script  type="text/javascript"  src="components/model-factory/team-MF.js"></script>
 <script  type="text/javascript"  src="components/spinner/spinner-directive.js"></script>
 <script  type="text/javascript" src="components/adminview/admin-view-controller.js"></script>
-<script  type="text/javascript" src="components/adminview/admin-view-http-service.js"></script>
-<script  type="text/javascript"  src="components/adminview/admin-view-model-factory.js"></script>
 <script  type="text/javascript"  src="components/calendarview/view-controller.js"></script>
 <script  type="text/javascript"  src="components/calendarview/view-http-service.js"></script>
 <script  type="text/javascript" src="components/calendarview/view-model-factory.js"></script>
 <script  type="text/javascript" src="components/statistics/statistics-controller.js"></script>
 <script  type="text/javascript"  src="components/createteam/create-team.js"></script>
-<script  type="text/javascript"  src="components/createteam/team-modify-factory.js"></script>
 <script  type="text/javascript"  src="components/createuser/create-user.js"></script>
-<script  type="text/javascript" src="components/createuser/user-modify-factory.js"></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 'use strict';
 angular.module('myApp.teamModifyFactory', [])
     .factory('teamModifyFactory', function ($http) {
-        var userModel = {};
+        var teamModel = {};
 
-        userModel.saveTeam = function(uuid, name){
+        teamModel.saveTeam = function(uuid, name){
             var dataObj = {
                 uuid: uuid,
                 name: name
@@ -17,11 +17,15 @@ angular.module('myApp.teamModifyFactory', [])
                 }
             });
         };
-        userModel.empty = function(){
-            return {
-                uuid : "",
-                name : ""
-            }
+        teamModel.loadTeams = function () {
+             return $http.get("/team/list");
         };
-        return userModel;
+        teamModel.getTeam = function (uuid) {
+             return $http.get("/team/get/" + uuid);
+        };
+        teamModel.removeTeam = function (uuid) {
+             return $http.get("/team/remove/" + uuid);
+        };
+
+        return teamModel;
     });

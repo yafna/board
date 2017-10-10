@@ -10,11 +10,16 @@ appInstalled
         });
     }])
 
-    .controller('CreateUserCtrl', ['userModifyFactory', function (userModifyFactory) {
+    .controller('CreateUserCtrl', [function (userModifyFactory, teamModifyFactory, $routeParams, $location) {
         var self = this;
 
         self.result = "";
-
+        if($routeParams.id !== undefined){
+            self.team = userModifyFactory.getUser($routeParams.id).then(
+                function (resp){
+                     self.user = resp.data;
+            })
+        }
         self.send = function () {
             userModifyFactory.saveUser(self.user.uuid, self.user.name, self.user.teamId)
                 .success(function (data, status, headers, config) {

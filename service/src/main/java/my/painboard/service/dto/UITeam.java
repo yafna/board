@@ -3,6 +3,7 @@ package my.painboard.service.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import my.painboard.db.model.Team;
 
 @Data
 @NoArgsConstructor
@@ -10,4 +11,9 @@ import lombok.NoArgsConstructor;
 public class UITeam {
     private String uuid;
     private String name;
+
+    public UITeam(Team team) {
+        this.setUuid(team.getUuid());
+        this.setName(team.getName());
+    }
 }

@@ -7,21 +7,52 @@ angular.module('myApp.adminviewview', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.
             controller: 'AdminViewCtrl'
         });
     }])
-    .controller('AdminViewCtrl', ['adminviewMF', function (adminviewMF) {
+    .controller('AdminViewCtrl', function (imageModifyFactory, teamModifyFactory,userModifyFactory) {
             var self = this;
 
             self.removeTeam = function (uuid) {
-                adminviewMF.removeTeam(uuid);
+                teamModifyFactory.removeTeam(uuid)
+                .then(
+                    function (resp2){
+                         teamModifyFactory.loadTeams().then(
+                             function (resp){
+                                 self.teams = resp.data;
+                         })
+                     })
             };
-//             self.teams = adminviewMF.loadTeams();
-
-
             self.removeUser = function (uuid) {
-                adminviewMF.removeUser(uuid);
+                userModifyFactory.removeUser(uuid).then(
+                    function (resp2){
+                         teamModifyFactory.loadUsers().then(
+                             function (resp){
+                                 self.users = resp.data;
+                         })
+                     })
             };
-            self.users =  adminviewMF.loadUsers();
-
+             self.removeImage = function (uuid) {
+                imageModifyFactory.removeImg(uuid).then(
+                    function (resp2){
+                         teamModifyFactory.loadImgs().then(
+                             function (resp){
+                                 self.images = resp.data;
+                         })
+                     })
+            };
+            self.teams = [];
+            self.users = [];
+            self.images = [];
             self.preLoad = function () {
-                self.teams = adminviewMF.loadTeams();
+               teamModifyFactory.loadTeams().then(
+                   function (resp){
+                       self.teams = resp.data;
+                   })
+                imageModifyFactory.loadImgs().then(
+                   function (resp){
+                       self.images = resp.data;
+                   })
+                userModifyFactory.loadUsers().then(
+                   function (resp){
+                       self.users = resp.data;
+                   })
             };
-    }])
+    })

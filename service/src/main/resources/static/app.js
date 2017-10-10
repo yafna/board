@@ -2,18 +2,17 @@
 
 angular.module('myApp', [
     'ngRoute',
+    'myApp.teamModifyFactory',
+    'myApp.userModifyFactory',
+    'myApp.imageModifyFactory',
     'myApp.calendarview',
     'myApp.viewSrv',
     'myApp.viewTableFactory',
     'myApp.adminviewview',
-    'myApp.adminviewMF',
-    'myApp.adminviewSrv',
     'myApp.statisticsview',
     'myApp.createteam',
-    'myApp.teamModifyFactory',
-    'myApp.createuser',
-    'myApp.userModifyFactory'
+    'myApp.createuser'
 ])
   .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.otherwise({redirectTo: '/calendarview'});
+        $routeProvider.otherwise({redirectTo: '/adminview'});
     }]);
