@@ -6,7 +6,8 @@ angular.module('myApp.userModifyFactory', [])
             var dataObj = {
                 uuid: uuid,
                 name: name,
-                team: team
+                team: "",
+                teamUuid: team
             };
             return $http({
                 method: 'POST',
@@ -21,7 +22,7 @@ angular.module('myApp.userModifyFactory', [])
             return $http.get("/users/list");
         };
         userModel.getUser = function (uuid) {
-            return $http.get("/user/get/" + uuid);
+            return $http.get("/users/get/" + uuid);
         };
         userModel.removeUser = function (uuid) {
             return $http.get("/users/remove/" + uuid);

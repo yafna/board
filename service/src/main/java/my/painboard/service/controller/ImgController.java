@@ -27,8 +27,8 @@ public class ImgController {
     @ResponseBody
     List<UIImage> list() {
         List<UIImage> res = new ArrayList<>();
-        for (Img item : imgService.list()) {
-//            res.add(new UIImage(item.getUuid(), item.getDesc(), item.getLevel()));
+        for (Img img : imgService.list()) {
+            res.add(new UIImage(img.getUuid(), img.getDesc(), img.getLevel(), img.getPath()));
         }
         return res;
     }

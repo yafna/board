@@ -44,7 +44,7 @@ public class UserController {
     public
     @ResponseBody
     UIUser get(@PathVariable String uuid) {
-        log.debug("Team requested {}", uuid);
+        System.out.println("User requested {}" +  uuid);
         return new UIUser(userService.getByUuid(uuid));
     }
 
@@ -52,10 +52,14 @@ public class UserController {
     public
     @ResponseBody
     ActionResult addUser(@RequestBody UIUser user) {
+        System.out.println("user = " + user.getName());
+        System.out.println("uuid = " + user.getUuid());
+        System.out.println("team1 = " + user.getTeam());
+        System.out.println("team2 = " + user.getTeamUuid());
         if (user.getUuid() == null) {
-            userService.create(user.getName(), user.getTeam());
+            userService.create(user.getName(), user.getTeamUuid());
         } else {
-            userService.update(user.getUuid(), user.getName(), user.getTeam());
+            userService.update(user.getUuid(), user.getName(), user.getTeamUuid());
         }
         return new ActionResult(true, "Seems that ok");
     }

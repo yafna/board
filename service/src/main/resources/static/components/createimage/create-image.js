@@ -7,10 +7,14 @@ appInstalled
         $routeProvider.when('/modifyImage', {
             templateUrl: 'components/createimage/create-image.html',
             controller: 'CreateImageCtrl'
-        });
+        })
+        .when('/modifyImage/:id', {
+             templateUrl: 'components/createimage/create-image.html',
+              controller: 'CreateImageCtrl'
+         });
     }])
 
-    .controller('CreateImageCtrl', ['imageModifyFactory', function (imageModifyFactory) {
+    .controller('CreateImageCtrl', function (imageModifyFactory, $routeParams) {
         var self = this;
 
         self.result = "";
@@ -25,4 +29,4 @@ appInstalled
                     self.result = "failure message: " + JSON.stringify({data: data});
                 });
         };
-    }]);
+    });

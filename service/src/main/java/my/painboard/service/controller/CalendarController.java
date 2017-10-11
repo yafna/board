@@ -100,7 +100,7 @@ public class CalendarController {
         List<User> users = userService.list();
         for (User user : users) {
             UIUserState uiUserState = new UIUserState();
-            uiUserState.setUser(new UIUser(user.getUuid(), user.getName(), user.getTeam().getName()));
+            uiUserState.setUser(new UIUser(user));
             for (int i = 0; i <= 14; ++i) {
                 UIStatusDay statusDay = new UIStatusDay();
                 ReportDay rd = reportDayService.getDay(localDate.plusDays(i).getDayOfYear(), localDate.getYear());

@@ -7,7 +7,7 @@ angular.module('myApp.adminviewview', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.
             controller: 'AdminViewCtrl'
         });
     }])
-    .controller('AdminViewCtrl', function (imageModifyFactory, teamModifyFactory,userModifyFactory) {
+    .controller('AdminViewCtrl', function (imageModifyFactory, teamModifyFactory, userModifyFactory) {
             var self = this;
 
             self.removeTeam = function (uuid) {
@@ -38,21 +38,18 @@ angular.module('myApp.adminviewview', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.
                          })
                      })
             };
-            self.teams = [];
-            self.users = [];
-            self.images = [];
-            self.preLoad = function () {
-               teamModifyFactory.loadTeams().then(
+//            self.preload = function(){
+                self.teams =  teamModifyFactory.loadTeams().then(
                    function (resp){
-                       self.teams = resp.data;
-                   })
-                imageModifyFactory.loadImgs().then(
-                   function (resp){
-                       self.images = resp.data;
-                   })
-                userModifyFactory.loadUsers().then(
-                   function (resp){
-                       self.users = resp.data;
-                   })
-            };
+                         self.teams = resp.data;
+                });
+                self.users =userModifyFactory.loadUsers().then(
+                    function (resp){
+                        self.users = resp.data;
+                });
+                self.images = imageModifyFactory.loadImgs().then(
+                     function (resp){
+                           self.images = resp.data;
+                });
+//            }
     })
