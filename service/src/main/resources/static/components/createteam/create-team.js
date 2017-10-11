@@ -18,7 +18,9 @@ appInstalled
     .controller('CreateTeamCtrl', function (teamModifyFactory, $routeParams, $location) {
         var self = this;
         self.result = "";
+        self.editmode = false;
         if($routeParams.id !== undefined){
+            self.editmode = true;
             self.team = teamModifyFactory.getTeam($routeParams.id).then(
                 function (resp){
                      self.team = resp.data;

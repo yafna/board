@@ -1,6 +1,7 @@
 <div class=" upper-gap left-gap bottom-gap col-md-12" ng-controller="CreateUserCtrl as ctrl">
-    <form name="form" class="form-horizontal col-md-5" novalidate>
-        <legend>User creation</legend>
+    <form ng-hide="self.env.loading" name="form" class="form-horizontal col-md-5" novalidate>
+        <div ng-if="ctrl.editmode" ><legend>Edit user</legend></div>
+        <div ng-if="!ctrl.editmode" ><legend>Create user</legend></div>
         <input type="hidden" name="uuid" ng-model="ctrl.user.uuid">
         <div class="form-group">
             <label for="name">Name</label>
@@ -20,4 +21,7 @@
             <input class="btn bg-primary" ng-click="ctrl.send()" type="submit" value="Submit">
         </div>
     </form>
+    <spinner class="col-md-offset-4" id="user-loading" on-register-complete="ctrl.loadUserData($spinnerService)"
+        size="medium">
+    </spinner>
 </div>

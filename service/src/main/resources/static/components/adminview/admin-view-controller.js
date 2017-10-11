@@ -38,18 +38,31 @@ angular.module('myApp.adminviewview', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.
                          })
                      })
             };
-//            self.preload = function(){
-                self.teams =  teamModifyFactory.loadTeams().then(
-                   function (resp){
-                         self.teams = resp.data;
-                });
-                self.users =userModifyFactory.loadUsers().then(
-                    function (resp){
-                        self.users = resp.data;
-                });
-                self.images = imageModifyFactory.loadImgs().then(
-                     function (resp){
-                           self.images = resp.data;
-                });
-//            }
+            self.loadImgTable = function (spinnerService) {
+                spinnerService.show('img-table-loading');
+                imageModifyFactory.loadImgs().then(
+                    function (resp) {
+                          spinnerService.hide('img-table-loading');
+                          self.images = resp.data;
+                     }
+                 );
+             };
+            self.loadTeamTable = function (spinnerService) {
+                spinnerService.show('team-table-loading');
+                teamModifyFactory.loadTeams().then(
+                    function (resp) {
+                          spinnerService.hide('team-table-loading');
+                          self.teams = resp.data;
+                     }
+                 );
+             };
+            self.loadUserTable = function (spinnerService) {
+                spinnerService.show('user-table-loading');
+                userModifyFactory.loadUsers().then(
+                    function (resp) {
+                          spinnerService.hide('user-table-loading');
+                          self.users = resp.data;
+                     }
+                 );
+             };
     })

@@ -1,6 +1,7 @@
 <div class=" upper-gap left-gap bottom-gap col-md-12" ng-controller="CreateTeamCtrl as ctrl">
     <form name="form" class="form-horizontal col-md-5 right-gap" novalidate>
-        <legend>Team creation</legend>
+        <div ng-if="ctrl.editmode" ><legend>Edit team</legend></div>
+        <div ng-if="!ctrl.editmode" ><legend>Create team</legend></div>
         <input type="hidden" name="uuid" ng-model="ctrl.team.uuid">
         <div class="form-group">
             <label for="name">Name</label>
