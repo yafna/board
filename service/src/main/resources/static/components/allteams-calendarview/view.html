@@ -1,0 +1,23 @@
+<div  class="col-md-12 upper-gap" ng-controller="AllTeamsCtrl as actrl">
+    <div class="col-md-4">
+        <h3>All Teams</h3>
+        <div ng-hide="ctrl.teamsLoaded">
+            <div ng-repeat="team in actrl.teams">
+                <h4>{{team.name}}</h4>
+                <div>
+                    <table>
+
+                    </table>
+                </div>
+                <div class="bottom-gap">
+                    <spinner class="col-md-offset-4" id="teams-loading-{{team.uuid}}" on-register-complete="actrl.loadTeam(team.uuid, $spinnerService)"
+                             size="medium"></spinner>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-gap">
+            <spinner class="col-md-offset-4" id="all-teams-list-loading" on-register-complete="actrl.loadAllTeams($spinnerService)"
+                     size="medium"></spinner>
+        </div>
+   </div>
+</div>

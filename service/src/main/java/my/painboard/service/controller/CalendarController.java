@@ -56,8 +56,10 @@ public class CalendarController {
         userService.create("H", teamid);
 //        userService.create("", teamid);
         imgService.create("0.png", 10, "happy");
+        imgService.create("0.png", 8, "moderate happy");
         imgService.create("1.png", 5, "medium");
-        imgService.create("2.png", 0, "not happy");
+        imgService.create("2.png", 3, "not happy");
+        imgService.create("2.png", 0, "not happy at all");
         LocalDate localDate = LocalDate.now().minusDays(15);
         for (int i = 0; i <= 17; ++i) {
             reportDayService.create(localDate.plusDays(i).getDayOfYear(), LocalDate.now().getYear());

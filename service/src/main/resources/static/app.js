@@ -11,7 +11,8 @@ angular.module('myApp', [
     'myApp.adminviewview',
     'myApp.statisticsview',
     'myApp.createteam',
-    'myApp.createuser'
+    'myApp.createuser',
+    'myApp.allTeamsCalendarview'
 ])
   .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/adminview'});
