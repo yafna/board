@@ -18,39 +18,34 @@ appInstalled
         var self = this;
 
         self.result = "";
-        self.env.loading = true;
+        self.loaded = false;
         self.editmode = false;
-//        self.teams = teamModifyFactory.loadTeams().then(
-//             function (resp){
-//                self.teams = resp.data;
-//             });
-//        if($routeParams.id !== undefined){
-//            self.editmode = true;
-//            self.user = userModifyFactory.getUser($routeParams.id).then(
-//                function (resp){
-//                     self.user = resp.data;
-//            })
-//        }
         self.loadUserData = function (spinnerService) {
             spinnerService.show('user-loading');
             if($routeParams.id !== undefined){
                  self.editmode = true;
                  userModifyFactory.getUser($routeParams.id).then(
                    function (resp2){
-                       self.user = resp.data2;
-                       self.env.loading = false;
+                       self.user = resp2.data;
+                       teamModifyFactory.loadTeams().then(
+                           function (resp) {
+                                  self.loaded = true;
+                                  self.teams = resp.data;
+                                  spinnerService.hide('user-loading');
+                              }
+                         );
                   })
              }else{
-                 self.env.loading = false;
+                self.loaded = false;
+                teamModifyFactory.loadTeams().then(
+                     function (resp) {
+                         self.teams = resp.data;
+                         self.loaded = true;
+                         spinnerService.hide('user-loading');
+                     }
+                 );
                  spinnerService.hide('user-loading');
              }
-            teamModifyFactory.loadTeams().then(
-                 function (resp) {
-                     self.teams = resp.data;
-                     spinnerService.hide('user-loading');
-                 }
-            );
-
         }
 
         self.send = function () {

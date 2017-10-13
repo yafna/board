@@ -48,7 +48,7 @@ public class TeamContoller {
         return new UITeam(teamService.getByUuid(uuid));
     }
 
-    @RequestMapping(value = "/modify", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
+    @RequestMapping(value = "/modify", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public
     @ResponseBody
     ActionResult addTeam(@RequestBody UITeam team) {

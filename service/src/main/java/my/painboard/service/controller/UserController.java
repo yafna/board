@@ -48,7 +48,7 @@ public class UserController {
         return new UIUser(userService.getByUuid(uuid));
     }
 
-    @RequestMapping(value = "/modify", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
+    @RequestMapping(value = "/modify", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public
     @ResponseBody
     ActionResult addUser(@RequestBody UIUser user) {

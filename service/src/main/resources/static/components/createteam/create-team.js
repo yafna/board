@@ -28,12 +28,9 @@ appInstalled
         }
         self.send = function () {
             teamModifyFactory.saveTeam(self.team.uuid, self.team.name)
-                .success(function (data, status, headers, config) {
+                .then(function (data, status, headers, config) {
                     self.result = data;
+                    $location.path( "/adminview" );
                 })
-                .error(function (data, status, headers, config) {
-                    self.result = "failure message: " + JSON.stringify({data: data});
-                });
-             $location.path( "/adminview" );
         };
     });

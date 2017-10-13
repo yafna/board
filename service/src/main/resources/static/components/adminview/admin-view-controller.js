@@ -23,7 +23,7 @@ angular.module('myApp.adminviewview', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.
             self.removeUser = function (uuid) {
                 userModifyFactory.removeUser(uuid).then(
                     function (resp2){
-                         teamModifyFactory.loadUsers().then(
+                         userModifyFactory.loadUsers().then(
                              function (resp){
                                  self.users = resp.data;
                          })
