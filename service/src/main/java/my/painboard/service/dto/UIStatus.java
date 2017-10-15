@@ -4,6 +4,7 @@ public enum UIStatus {
     IMAGE("image"),
     HOLIDAY("holiday"),
     VACATION("vacation"),
+    IMAGE_AND_FILL("image_and_fill"),
     TOFILL("tofill"),
     EMPTY("empty");
 

@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class UIReportDay {
     private String uuid;
     private int day;
+    private String dayOfWeek;
 }

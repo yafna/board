@@ -1,23 +1,47 @@
-<div  class="col-md-12 upper-gap" ng-controller="AllTeamsCtrl as actrl">
-    <div class="col-md-4">
-        <h3>All Teams</h3>
-        <div ng-hide="ctrl.teamsLoaded">
-            <div ng-repeat="team in actrl.teams">
-                <h4>{{team.name}}</h4>
-                <div>
-                    <table>
-
-                    </table>
-                </div>
-                <div class="bottom-gap">
-                    <spinner class="col-md-offset-4" id="teams-loading-{{team.uuid}}" on-register-complete="actrl.loadTeam(team.uuid, $spinnerService)"
-                             size="medium"></spinner>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-gap">
-            <spinner class="col-md-offset-4" id="all-teams-list-loading" on-register-complete="actrl.loadAllTeams($spinnerService)"
-                     size="medium"></spinner>
-        </div>
-   </div>
+<div class="col-md-12 upper-gap" ng-controller="AllTeamsCtrl as actrl">
+    <div ng-repeat="(key, value) in actrl.paintable.uiUsers">
+        <div> {{key}} </div>
+        <md-content scroll-glue-right>
+        <table class="col-md-12 table table-striped upper-gap">
+            <tr>
+                <th>
+                    User
+                </th>
+                <th ng-repeat="date in actrl.paintable.days">{{date.day}}</th>
+            </tr>
+            <tr ng-repeat="item in value">
+                <td>
+                    {{item.user.name}}
+                </td>
+                <td ng-repeat="step in item.statusday track by $index">
+                    <span ng-if="step.status == 'TOFILL' || step.status == 'IMAGE_AND_FILL'" height="20" width="20">
+                        <div class="dropdown dropdown-append-to-body">
+                            <img ng-if="step.status == 'IMAGE_AND_FILL'" ng-src="/components/smiles/{{step.image.name}}" alt="Smiley face"
+                                 height="28" width="28" class="dropdown-toggle" data-toggle="dropdown">
+                            <img ng-if="step.status == 'TOFILL'" ng-src="/components/smiles/question.png" alt="Smiley face"
+                                 height="28" width="28" class="dropdown-toggle" data-toggle="dropdown">
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-repeat="imgitem in actrl.paintable.imgs" ng-click="actrl.dostatus(imgitem.uuid, item.user.uuid, step.day.uuid)">
+                                        <img ng-src="/components/smiles/{{imgitem.name}}"  alt="Smiley face" height="28" width="28">
+                                       {{imgitem.description}}
+                                    </img>
+                                </li>
+                                 <!--<li class="divider"></li>-->
+                                <!--<li> Vacation option</li>-->
+                            </ul>
+                        </div>
+                    </span>
+                    <span ng-if="step.status == 'EMPTY'"></span>
+                    <div ng-if="step.status == 'IMAGE'" >
+                        <img ng-src="/components/smiles/{{step.image.name}}"  alt="Smiley face" height="28" width="28">
+                    </div>
+                    <div ng-if="step.status == 'HOLIDAY'" class="alert alert-info"></div>
+                    <div ng-if="step.status == 'VACATION'" class="alert alert-success"></div>
+                </td>
+            </tr>
+        </table>
+        </md-content>
+    </div>
+    <spinner id="allteam-loading" on-register-complete="ctrl.loadAllTeams($spinnerService)" size="medium">
+    </spinner>
 </div>

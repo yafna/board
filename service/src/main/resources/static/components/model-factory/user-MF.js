@@ -7,7 +7,7 @@ angular.module('myApp.userModifyFactory', [])
                 uuid: uuid,
                 name: name,
                 team: "",
-                teamUuid: team
+                teamUuids: team
             };
             return $http({
                 method: 'POST',
@@ -17,6 +17,9 @@ angular.module('myApp.userModifyFactory', [])
                     'Content-Type': 'application/json'
                 }
             });
+        };
+        userModel.preloadData = function () {
+            return $http.get("/calendar/preload");
         };
         userModel.loadUsers = function () {
             return $http.get("/users/list");

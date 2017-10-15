@@ -1,7 +1,9 @@
 package my.painboard.service.dto;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UITable {
+public class UITeamTable {
     private List<UIReportDay> days = new ArrayList<>();
-//    private List<Integer> dates = new ArrayList<>();
-    private List<UIUserState> uiUsers = new ArrayList<>();
     private List<UIImage> imgs = new ArrayList<>();
+    private Map<String, List<UIUserState>> uiUsers = new HashMap<>();
 }

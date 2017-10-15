@@ -1,6 +1,8 @@
 package my.painboard.service.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import my.painboard.db.model.Img;
 import my.painboard.db.service.ImgService;
@@ -8,9 +10,11 @@ import my.painboard.service.dto.ActionResult;
 import my.painboard.service.dto.UIImage;
 import my.painboard.service.filesystem.ImgFileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,21 +31,18 @@ public class ImgController {
     @ResponseBody
     List<UIImage> list() {
         List<UIImage> res = new ArrayList<>();
-        for (Img img : imgService.list()) {
-            res.add(new UIImage(img.getUuid(), img.getDesc(), img.getLevel(), img.getPath()));
+        List<Img> imgs = imgService.list();
+        Collections.sort(imgs, (o1, o2) -> o2.getLevel() - o1.getLevel());
+        for (Img img : imgs) {
+            res.add(new UIImage(img));
         }
         return res;
     }
 
-//    @RequestMapping(method = RequestMethod.POST)
-//    public void save(MyObject myObject, MultipartFile file) {
-//        //delegation to the correct service
-//    }
-
-    @RequestMapping("/modify")
+    @RequestMapping(value = "/modify", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public
     @ResponseBody
-    ActionResult addUser(@RequestBody UIImage img) {
+    ActionResult modify(@RequestBody UIImage img) {
         if(img.getUuid() == null) {
             imgService.create(null, img.getLevel(), img.getDescription());
         }else {
@@ -50,12 +51,34 @@ public class ImgController {
         return new ActionResult(true, "Seems that ok");
     }
 
+    @RequestMapping("/enable/{uuid}")
+    public
+    @ResponseBody
+    ActionResult enable(@PathVariable String uuid) {
+        imgService.enable(uuid, !imgService.getByUuid(uuid).getEnabled());
+        return new ActionResult(true, "Seems that ok");
+    }
+
+    @RequestMapping("/updateDescripton/{uuid}/{newdesc}")
+    public
+    @ResponseBody
+    ActionResult updateDescripton(@PathVariable String uuid,@PathVariable String newdesc) {
+        imgService.updateDescription(uuid, newdesc);
+        return new ActionResult(true, "Seems that ok");
+    }
 
     @RequestMapping("/remove/{uuid}")
     public
     @ResponseBody
-    ActionResult removeUser(@PathVariable String uuid) {
+    ActionResult remove(@PathVariable String uuid) {
         imgService.remove(uuid);
         return new ActionResult(true, "Seems that ok");
+    }
+
+    @RequestMapping("/get/{uuid}")
+    public
+    @ResponseBody
+    UIImage get(@PathVariable String uuid) {
+        return new UIImage(imgService.getByUuid(uuid));
     }
 }

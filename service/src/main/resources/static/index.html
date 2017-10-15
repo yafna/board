@@ -12,22 +12,7 @@
     <link rel="stylesheet" href="components/css/main.css">
 </head>
 <body>
-<div class="row grey-dark">
-    <div class="row">
-        <nav class="col-md-2 col-xs-3
-         upper-gap white right-gap left-gap full-height">
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="#/calendarview">board</a></li>
-                <li><a href="#/allTeamsCalendarview">board2</a></li>
-                <li><a href="#/adminview">admin</a></li>
-                <!--<li><a href="#/statistics">statistics</a></li>-->
-            </ul>
-        </nav>
-        <div class="col-md-9 col-xs-8 upper-gap white ">
-            <div ng-view></div>
-        </div>
-    </div>
-</div>
+<div ng-view></div>
 <!--<div class="navbar navbar-default navbar-fixed-bottom footer-height">-->
     <!--<div class="col-md-2 pull-right left-gap"><a href="#">Send feedback</a> | <a href="#">About</a></div>-->
 <!--</div>-->
@@ -45,6 +30,7 @@
 <script  type="text/javascript"  src="components/model-factory/image-MF.js"></script>
 <script  type="text/javascript"  src="components/model-factory/user-MF.js"></script>
 <script  type="text/javascript"  src="components/model-factory/team-MF.js"></script>
+<script  type="text/javascript"  src="components/model-factory/settings-MF.js"></script>
 <script  type="text/javascript"  src="components/spinner/spinner-directive.js"></script>
 <script  type="text/javascript" src="components/adminview/admin-view-controller.js"></script>
 <script  type="text/javascript"  src="components/calendarview/view-controller.js"></script>
@@ -53,6 +39,10 @@
 <script  type="text/javascript" src="components/statistics/statistics-controller.js"></script>
 <script  type="text/javascript"  src="components/createteam/create-team.js"></script>
 <script  type="text/javascript"  src="components/createuser/create-user.js"></script>
+<script  type="text/javascript"  src="components/createimg/create-img.js"></script>
+<script  type="text/javascript"  src="components/dummypage/dummy-view.js"></script>
 <script  type="text/javascript"  src="components/allteams-calendarview/allteams-controller.js"></script>
+<script  type="text/javascript"  src="components/allteams-calendarview/allview-model-factory.js"></script>
+<script  type="text/javascript"  src="components/allteams-calendarview/allview-http-service.js"></script>
 </body>
 </html>

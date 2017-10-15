@@ -27,8 +27,19 @@ public class ImgService {
         img.setPath(path);
         img.setLevel(level);
         img.setDesc(desc);
+        img.setEnabled(Boolean.TRUE);
         em.persist(img);
         return img.getUuid();
+    }
+
+    public void enable(String uuid, boolean isEnabled){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaUpdate<Img> q = cb.createCriteriaUpdate(Img.class);
+        Root<Img> c = q.from(Img.class);
+        q.set(c.get(Img_.modified), new Date())
+                .set(c.get(Img_.enabled), isEnabled)
+                .where(cb.equal(c.get(Img_.uuid), uuid));
+        em.createQuery(q).executeUpdate();
     }
 
     public void update(String uuid, String path, int level, String desc) {
@@ -59,6 +70,15 @@ public class ImgService {
         return em.createQuery(q.select(c)).getSingleResult();
     }
 
+    public List<Img> listEnabled() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Img> q = cb.createQuery(Img.class);
+        Root<Img> c = q.from(Img.class);
+        q.where(cb.and(cb.isNull(c.get(Img_.dead)),
+                cb.equal(c.get(Img_.enabled), true)));
+        return em.createQuery(q.select(c)).getResultList();
+    }
+
     public List<Img> list() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Img> q = cb.createQuery(Img.class);
@@ -73,5 +93,15 @@ public class ImgService {
         Root<Img> c = q.from(Img.class);
         q.where(cb.isNotNull(c.get(Img_.dead)));
         return em.createQuery(q.select(c)).getResultList();
+    }
+
+    public void updateDescription(String uuid, String newdesc) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaUpdate<Img> q = cb.createCriteriaUpdate(Img.class);
+        Root<Img> c = q.from(Img.class);
+        q.set(c.get(Img_.modified), new Date())
+                .set(c.get(Img_.desc), newdesc)
+                .where(cb.equal(c.get(Img_.uuid), uuid));
+        em.createQuery(q).executeUpdate();
     }
 }

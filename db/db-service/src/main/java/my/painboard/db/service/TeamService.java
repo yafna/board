@@ -1,5 +1,6 @@
 package my.painboard.db.service;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -53,6 +54,14 @@ public class TeamService {
         Root<Team> c = q.from(Team.class);
         q.where(cb.equal(c.get(Team_.uuid), uuid));
         return em.createQuery(q.select(c)).getSingleResult();
+    }
+
+    public List<Team> getByUuids(List<String> uuids) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Team> q = cb.createQuery(Team.class);
+        Root<Team> c = q.from(Team.class);
+        q.where(c.get(Team_.uuid).in(uuids));
+        return em.createQuery(q.select(c)).getResultList();
     }
 
     public List<Team> list() {

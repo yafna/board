@@ -1,8 +1,10 @@
 package my.painboard.service.controller;
 
+import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
 import my.painboard.db.model.User;
 import my.painboard.db.service.UserService;
+import my.painboard.db.service.UserTeamService;
 import my.painboard.service.dto.ActionResult;
 import my.painboard.service.dto.UIUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserTeamService userTeamService;
 
     @RequestMapping("/hello")
     public String hellohere() {
@@ -35,7 +39,7 @@ public class UserController {
     List<UIUser> list() {
         List<UIUser> res = new ArrayList<>();
         for (User item : userService.list()) {
-            res.add(new UIUser(item));
+            res.add(new UIUser(item, userTeamService.getAllByUser(item.getUuid())));
         }
         return res;
     }
@@ -45,7 +49,7 @@ public class UserController {
     @ResponseBody
     UIUser get(@PathVariable String uuid) {
         System.out.println("User requested {}" +  uuid);
-        return new UIUser(userService.getByUuid(uuid));
+        return new UIUser(userService.getByUuid(uuid), userTeamService.getAllByUser(uuid));
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,11 +59,10 @@ public class UserController {
         System.out.println("user = " + user.getName());
         System.out.println("uuid = " + user.getUuid());
         System.out.println("team1 = " + user.getTeam());
-        System.out.println("team2 = " + user.getTeamUuid());
         if (user.getUuid() == null) {
-            userService.create(user.getName(), user.getTeamUuid());
+            userService.create(user.getName(), user.getTeamUuids());
         } else {
-            userService.update(user.getUuid(), user.getName(), user.getTeamUuid());
+            userService.update(user.getUuid(), user.getName(), user.getTeamUuids());
         }
         return new ActionResult(true, "Seems that ok");
     }

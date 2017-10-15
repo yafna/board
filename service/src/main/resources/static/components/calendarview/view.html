@@ -1,57 +1,55 @@
-<div class="col-md-12 upper-gap" ng-init="actrl.preLoad()" ng-controller="CalendarViewCtrl as actrl">
-    <div>
-        <table class="col-md-12 table table-striped upper-gap">
-            <tr>
-                <th>
-                    Team
-                </th>
-                <th>
-                    User
-                </th>
-                <th ng-repeat="date in actrl.paintable.days">{{date.day}}</th>
-            </tr>
+<div class="row grey-dark">
+    <div class="row">
+        <nav class="col-md-2 col-xs-3
+         upper-gap white right-gap left-gap full-height">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="#/calendarview">board</a></li>
+                <li><a href="#/allTeamsCalendarview">board2</a></li>
+                <li><a href="#/adminview">admin</a></li>
+                <!--<li><a href="#/statistics">statistics</a></li>-->
+            </ul>
+        </nav>
+        <div class="col-md-9 col-xs-8 upper-gap white ">
+        <div class="col-md-12 upper-gap" ng-init="actrl.preLoad()" ng-controller="CalendarViewCtrl as actrl">
+            <div>
+                <table class="col-md-12 table table-striped upper-gap">
+                    <tr>
+                        <th>
+                            User
+                        </th>
+                        <th ng-repeat="date in actrl.paintable.days">{{date.day}}</th>
+                    </tr>
 
-            <tr ng-repeat="item in actrl.paintable.uiUsers">
-                <td>
-                    {{item.user.team}}
-                </td>
-                <td>
-                    {{item.user.name}}
-                </td>
-                <td ng-repeat="step in item.statusday track by $index">
-                    <span ng-if="step.status == 'TOFILL' || step.status == 'IMAGE'" height="20" width="20">
-                        <div class="dropdown dropdown-append-to-body">
-                            <button ng-if="step.status == 'IMAGE'" class="smiley-size dropdown-toggle" data-toggle="dropdown" >
-                                   <img ng-src="/components/smiles/{{step.image.name}}" alt="Smiley face" height="28" width="28">
-                                   <span class="caret"></span>
-                            </button>
-
-                            <button ng-if="step.status == 'TOFILL'" class="smiley-size dropdown-toggle alert-warning" data-toggle="dropdown" >
-                                   <img ng-src="/components/smiles/question.png" alt="Smiley face" height="28" width="28">
-                                   <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li ng-repeat="imgitem in actrl.paintable.imgs">
-                                        <img ng-src="/components/smiles/{{imgitem.name}}"
-                                             ng-click="actrl.dostatus(imgitem.uuid, item.user.uuid, step.day.uuid)"
-                                             alt="Smiley face" height="28" width="28">
-                                </li>
-                                <li> Vacation option</li>
-                            </ul>
-                        </div>
-                    </span>
-                    <span ng-if="step.status == 'EMPTY'"></span>
-                    <div ng-if="step.status == 'HOLIDAY'" class="alert alert-info"></div>
-                    <div ng-if="step.status == 'VACATION'" class="alert alert-success"></div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <h6>Possible options: </h6>
-    <div>
-        <div ng-repeat="item in actrl.paintable.imgs">
-            <img ng-src="/components/smiles/{{item.name}}" alt="Smiley face" height="30" width="30">
-            {{item.description}}
+                    <tr ng-repeat="item in actrl.paintable.uiUsers">
+                        <td>
+                            {{item.user.name}}
+                        </td>
+                        <td ng-repeat="step in item.statusday track by $index">
+                            <span ng-if="step.status == 'TOFILL' || step.status == 'IMAGE'" height="20" width="20">
+                                <div class="dropdown dropdown-append-to-body">
+                                    <img ng-if="step.status == 'IMAGE'" ng-src="/components/smiles/{{step.image.name}}" alt="Smiley face"
+                                         height="28" width="28" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img ng-if="step.status == 'TOFILL'" ng-src="/components/smiles/question.png" alt="Smiley face"
+                                         height="28" width="28" class="dropdown-toggle" data-toggle="dropdown">
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-repeat="imgitem in actrl.paintable.imgs" ng-click="actrl.dostatus(imgitem.uuid, item.user.uuid, step.day.uuid)">
+                                                <img ng-src="/components/smiles/{{imgitem.name}}"  alt="Smiley face" height="28" width="28">
+                                               {{imgitem.description}}
+                                            </img>
+                                        </li>
+                                         <li class="divider"></li>
+                                        <li> Vacation option</li>
+                                    </ul>
+                                </div>
+                            </span>
+                            <span ng-if="step.status == 'EMPTY'"></span>
+                            <div ng-if="step.status == 'HOLIDAY'" class="alert alert-info"></div>
+                            <div ng-if="step.status == 'VACATION'" class="alert alert-success"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         </div>
     </div>
 </div>

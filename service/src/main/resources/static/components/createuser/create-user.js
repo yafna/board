@@ -49,7 +49,7 @@ appInstalled
         }
 
         self.send = function () {
-            userModifyFactory.saveUser(self.user.uuid, self.user.name, self.user.teamUuid)
+            userModifyFactory.saveUser(self.user.uuid, self.user.name, self.user.teamUuids)
                 .success(function (data, status, headers, config) {
                     self.result = data;
                     $location.path( "/adminview" );

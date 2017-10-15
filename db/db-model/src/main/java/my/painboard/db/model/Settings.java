@@ -13,14 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "img")
-public class Img extends PersistentObject {
-    @Column(name = "level", nullable = false)
-    private Integer level;
-    @Column(name = "path", nullable = false)
-    private String path;
-    @Column(name = "desc")
-    private String desc;
-    @Column(name = "enabled")
-    private Boolean enabled;
+@Table(name = "Settings")
+public class Settings extends PersistentObject{
+    @Column(name = "editPreviousDays")
+    private boolean editPreviousDays;
 }

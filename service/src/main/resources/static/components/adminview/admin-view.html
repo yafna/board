@@ -1,89 +1,128 @@
-<div class="col-md-12 upper-gap" ng-controller="AdminViewCtrl as actrl">
-    <div class="col-md-4">
-        <h6>Images</h6>
-        <table class="col-md-12 table table-striped upper-gap">
-            <tr>
-                <th> Img  </th>
-                <th> Description </th>
-                <th> Happiness level</th>
-                <th> Action </th>
-            </tr>
-            <tr ng-repeat="item in actrl.images">
-                <td>
-                    <img ng-src="/components/smiles/{{item.name}}" alt="Smiley face" height="30" width="30">
-                </td>
-                <td>
-                    {{item.description}}
-                </td>
-                <td>
-                    {{item.level}}
-                </td>
-                <td>
-                    <a href="#/modifyImage/{{item.uuid}}"><span class="glyphicon glyphicon-pencil"></span></a> /
-                    <a href="" ng-click="actrl.removeImage(item.uuid)"><span class="glyphicon glyphicon-trash"></span></a>
-                </td>
-            </tr>
-        </table>
-        <div>
-            <a href="#/modifyUser"> + Add user</a>
+<div class="row grey-dark">
+    <div class="row">
+        <nav class="col-md-2 col-xs-3
+         upper-gap white right-gap left-gap full-height">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="#/calendarview">all people board</a></li>
+                <li><a href="#/allTeamsCalendarview">divided by teams</a></li>
+                <li><a href="#/adminview">admin</a></li>
+                <!--<li><a href="#/statistics">statistics</a></li>-->
+            </ul>
+        </nav>
+        <div class="col-md-9 col-xs-8 upper-gap white ">
+        <div class="col-md-12 upper-gap" ng-controller="AdminViewCtrl as actrl">
+            <div class="col-md-8">
+                <h4>Settings</h4>
+                <div class="row">
+                    <input type="checkbox" id="editdays" ng-model="self.settings.editPreviousDays" ng-change="actrl.switchEditable()">
+                    Allow edit previous days
+                </div>
+            </div>
+            <div class="bottom-gap">
+                <spinner class="col-md-offset-4" id="settings-loading" on-register-complete="actrl.loadSettings($spinnerService)"
+                         size="medium"></spinner>
+            </div>
+            <div class='row'>
+                <div class='col-md-8 col-md-offset-1'>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-4 right-gap">
+                <h4>Teams</h4>
+                <table class="col-md-12 table table-striped upper-gap">
+                    <tr>
+                        <th> Name  </th>
+                        <th>Action</th>
+                    </tr>
+                    <tr ng-repeat="item in actrl.teams">
+                        <td>
+                          <a  href="#/teamview/{{item.uuid}}"> {{item.name}} </a>
+                        </td>
+                        <td>
+                            <a href="#/modifyTeam/{{item.uuid}}"><span class="glyphicon glyphicon-pencil"></span></a> /
+                            <a href="" ng-click="actrl.removeTeam(item.uuid)"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <a href="#/modifyTeam"> + Add team</a>
+                </div>
+                <div class="bottom-gap">
+                    <spinner class="col-md-offset-4" id="team-table-loading" on-register-complete="actrl.loadTeamTable($spinnerService)"
+                             size="medium"></spinner>
+                </div>
+            </div>
+            <div class="col-md-5 right-gap">
+            <h4>People</h4>
+                <table class="col-md-12 table table-striped upper-gap">
+                    <tr>
+                        <th> Name  </th>
+                        <th> Team  </th>
+                        <th>Action</th>
+                    </tr>
+                    <tr ng-repeat="item in actrl.users">
+                        <td>
+                            {{item.name}}
+                        </td>
+                        <td>
+                            {{item.team}}
+                        </td>
+                        <td>
+                            <a href="#/modifyUser/{{item.uuid}}"><span class="glyphicon glyphicon-pencil"></span></a> /
+                            <a href="" ng-click="actrl.removeUser(item.uuid)"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <a href="#/modifyUser"> + Add user</a>
+                </div>
+                <div class="bottom-gap">
+                    <spinner class="col-md-offset-4" id="user-table-loading" on-register-complete="actrl.loadUserTable($spinnerService)"
+                             size="medium"></spinner>
+                </div>
+            </div>
+            </div>
+            <div class='row'>
+                <div class='col-md-8 col-md-offset-1'>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <h4>Images</h4>
+                <table class="col-md-12 table table-striped upper-gap">
+                    <tr>
+                        <th></th>
+                        <th> Img  </th>
+                        <th> Description </th>
+                        <th> Happiness level</th>
+                        <th> Action </th>
+                    </tr>
+                    <tr ng-repeat="item in actrl.images">
+                        <td>
+                            <input type="checkbox" ng-model="item.enabled" ng-change="actrl.enableImg(item.uuid)">
+                        </td>
+                        <td>
+                            <img ng-src="/components/smiles/{{item.name}}" alt="Smiley face" height="30" width="30">
+                        </td>
+                        <td>
+                            {{item.description}}
+                        </td>
+                        <td>
+                            {{item.level}}
+                        </td>
+                        <td>
+                            <a href="#/modifyImg/{{item.uuid}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <!--/<a href="" ng-click="actrl.removeImage(item.uuid)"><span class="glyphicon glyphicon-trash"></span></a>-->
+                        </td>
+                    </tr>
+                </table>
+                <div class="bottom-gap">
+                    <spinner class="col-md-offset-4" id="img-table-loading" on-register-complete="actrl.loadImgTable($spinnerService)"
+                             size="medium"></spinner>
+                </div>
+            </div>
         </div>
-        <div class="bottom-gap">
-            <spinner class="col-md-offset-4" id="img-table-loading" on-register-complete="actrl.loadImgTable($spinnerService)"
-                     size="medium"></spinner>
-        </div>
-    </div>
-    <div class="col-md-3 right-gap">
-        <h6>Teams</h6>
-        <table class="col-md-12 table table-striped upper-gap">
-            <tr>
-                <th> Name  </th>
-                <th>Action</th>
-            </tr>
-            <tr ng-repeat="item in actrl.teams">
-                <td>
-                    {{item.name}}
-                </td>
-                <td>
-                    <a href="#/modifyTeam/{{item.uuid}}"><span class="glyphicon glyphicon-pencil"></span></a> /
-                    <a href="" ng-click="actrl.removeTeam(item.uuid)"><span class="glyphicon glyphicon-trash"></span></a>
-                </td>
-            </tr>
-        </table>
-        <div>
-            <a href="#/modifyTeam"> + Add team</a>
-        </div>
-        <div class="bottom-gap">
-            <spinner class="col-md-offset-4" id="team-table-loading" on-register-complete="actrl.loadTeamTable($spinnerService)"
-                     size="medium"></spinner>
-        </div>
-    </div>
-    <div class="col-md-4 right-gap">
-    <h6>People</h6>
-        <table class="col-md-12 table table-striped upper-gap">
-            <tr>
-                <th> Name  </th>
-                <th> Team  </th>
-                <th>Action</th>
-            </tr>
-            <tr ng-repeat="item in actrl.users">
-                <td>
-                    {{item.name}}
-                </td>
-                <td>
-                    {{item.team}}
-                </td>
-                <td>
-                    <a href="#/modifyUser/{{item.uuid}}"><span class="glyphicon glyphicon-pencil"></span></a> /
-                    <a href="" ng-click="actrl.removeUser(item.uuid)"><span class="glyphicon glyphicon-trash"></span></a>
-                </td>
-            </tr>
-        </table>
-        <div>
-            <a href="#/modifyUser"> + Add user</a>
-        </div>
-        <div class="bottom-gap">
-            <spinner class="col-md-offset-4" id="user-table-loading" on-register-complete="actrl.loadUserTable($spinnerService)"
-                     size="medium"></spinner>
         </div>
     </div>
 </div>

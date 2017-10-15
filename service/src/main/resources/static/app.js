@@ -5,6 +5,7 @@ angular.module('myApp', [
     'myApp.teamModifyFactory',
     'myApp.userModifyFactory',
     'myApp.imageModifyFactory',
+    'myApp.settingsModifyFactory',
     'myApp.calendarview',
     'myApp.viewSrv',
     'myApp.viewTableFactory',
@@ -12,8 +13,13 @@ angular.module('myApp', [
     'myApp.statisticsview',
     'myApp.createteam',
     'myApp.createuser',
-    'myApp.allTeamsCalendarview'
+    'myApp.createimg',
+    'myApp.allTeamsCalendarview',
+    'myApp.allviewSrv',
+    'myApp.dummyviewview',
+    'myApp.allviewTableFactory'
+
 ])
   .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.otherwise({redirectTo: '/adminview'});
+        $routeProvider.otherwise({redirectTo: '/dummypage'});
     }]);

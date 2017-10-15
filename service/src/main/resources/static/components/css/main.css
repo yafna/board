@@ -32,8 +32,10 @@
 }
 
 .smiley-size {
-    height: 35px;
-    width: 45px;
+    height: 30px;
+    width: 30px;
+    scrollwidth : 30px;
+    min-width: 30px;
 }
 
 .grey-dark{

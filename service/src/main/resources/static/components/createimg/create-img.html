@@ -10,25 +10,25 @@
             <!--</ul>-->
         <!--</nav>-->
         <!--<div class="col-md-9 col-xs-8 upper-gap white ">-->
-        <!--<div class=" upper-gap left-gap bottom-gap col-md-12" ng-controller="CreateTeamCtrl as ctrl">-->
+        <div class=" upper-gap left-gap bottom-gap col-md-12" ng-controller="CreateImgCtrl as ctrl">
             <form name="form" class="form-horizontal col-md-5 right-gap" novalidate>
-                <div ng-if="ctrl.editmode" ><legend>Edit team</legend></div>
-                <div ng-if="!ctrl.editmode" ><legend>Create team</legend></div>
-                <input type="hidden" name="uuid" ng-model="ctrl.team.uuid">
+                <div ng-if="ctrl.editmode" ><legend>Edit description</legend></div>
+                <!--<div ng-if="!ctrl.editmode" ><legend>Create image</legend></div>-->
+                <input type="hidden" name="uuid" ng-model="ctrl.img.uuid">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text"  id="name" class="form-control col-md-4" ng-model="ctrl.team.name" placeholder="Name" required>
+                    <label for="image">Image</label>
+                    <img id="image" ng-src="/components/smiles/{{ctrl.img.name}}" alt="Smiley face" height="30" width="30">
                 </div>
                 <div class="form-group">
-                    <!--ng-if vs ng-show is a tricky question, please, keep in mind, that: http://www.jarchitects.be/ng-if-versus-ng-show/ -->
-                    <!--<span  ng-if="ctrl.result">Result: {{ctrl.result}}</span>-->
+                    <label for="name">Description</label>
+                    <input type="text"  id="name" class="form-control col-md-4" ng-model="ctrl.img.description" placeholder="Name" required>
                 </div>
                 <div class="col-md-7">
                     <a  class="btn btn-default" type="button"  href="#/adminview">cancel</a>
                     <input class="btn bg-primary" ng-click="ctrl.send()" type="submit" value="Submit">
                 </div>
             </form>
-        <!--</div>-->
+        </div>
         <!--</div>-->
     <!--</div>-->
 </div>

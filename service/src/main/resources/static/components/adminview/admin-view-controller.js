@@ -7,9 +7,30 @@ angular.module('myApp.adminviewview', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.
             controller: 'AdminViewCtrl'
         });
     }])
-    .controller('AdminViewCtrl', function (imageModifyFactory, teamModifyFactory, userModifyFactory) {
+    .controller('AdminViewCtrl', function (imageModifyFactory, teamModifyFactory, userModifyFactory, settingsModifyFactory) {
             var self = this;
-
+            self.editAll = false;
+            self.loadSettings = function (spinnerService) {
+                spinnerService.show('settings-loading');
+                settingsModifyFactory.get().then(
+                    function (resp) {
+                          spinnerService.hide('settings-loading');
+                          self.settings = resp.data;
+                     }
+                 );
+             };
+            self.switchEditable = function () {
+                settingsModifyFactory.switchEditable().then(
+                    function (resp2) {
+                        settingsModifyFactory.get().then(
+                            function (resp) {
+                                 spinnerService.hide('settings-loading');
+                                 self.settings = resp.data;
+                             }
+                         );
+                     }
+                 );
+             };
             self.removeTeam = function (uuid) {
                 teamModifyFactory.removeTeam(uuid)
                 .then(
@@ -29,15 +50,24 @@ angular.module('myApp.adminviewview', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.
                          })
                      })
             };
-             self.removeImage = function (uuid) {
-                imageModifyFactory.removeImg(uuid).then(
-                    function (resp2){
-                         teamModifyFactory.loadImgs().then(
-                             function (resp){
-                                 self.images = resp.data;
-                         })
-                     })
+            self.enableImg = function (uuid) {
+                imageModifyFactory.enable(uuid).then(
+                 function (resp2){
+                      teamModifyFactory.loadImgs().then(
+                         function (resp){
+                             self.images = resp.data;
+                      })
+                 })
             };
+//            self.removeImage = function (uuid) {
+//                imageModifyFactory.removeImg(uuid).then(
+//                    function (resp2){
+//                         teamModifyFactory.loadImgs().then(
+//                             function (resp){
+//                                 self.images = resp.data;
+//                         })
+//                     })
+//            };
             self.loadImgTable = function (spinnerService) {
                 spinnerService.show('img-table-loading');
                 imageModifyFactory.loadImgs().then(
