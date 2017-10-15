@@ -103,7 +103,9 @@ public class CalendarController {
         UITable table = new UITable();
         table.setDays(getDays(12, 2));
         List<UIImage> imgs = new ArrayList<>();
-        for (Img img : imgService.listEnabled()) {
+        List<Img> imgss = imgService.list();
+        Collections.sort(imgss, (o1, o2) -> o2.getLevel() - o1.getLevel());
+        for (Img img : imgss){
             imgs.add(new UIImage(img));
         }
         table.setImgs(imgs);
@@ -120,7 +122,9 @@ public class CalendarController {
         table.setDays(getDays(12, 2));
 
         List<UIImage> imgs = new ArrayList<>();
-        for (Img img : imgService.listEnabled()) {
+        List<Img> imgss = imgService.list();
+        Collections.sort(imgss, (o1, o2) -> o2.getLevel() - o1.getLevel());
+        for (Img img : imgss){
             imgs.add(new UIImage(img));
         }
         table.setImgs(imgs);
@@ -141,7 +145,9 @@ public class CalendarController {
         table.setDays(getDays(12, 2));
 
         List<UIImage> imgs = new ArrayList<>();
-        for (Img img : imgService.listEnabled()) {
+        List<Img> imgss = imgService.list();
+        Collections.sort(imgss, (o1, o2) -> o2.getLevel() - o1.getLevel());
+        for (Img img : imgss){
             imgs.add(new UIImage(img));
         }
         table.setImgs(imgs);
