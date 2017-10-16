@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "User")
+@Table(name = "USER")
 public class User extends PersistentObject {
     @Column(name = "name", nullable = false)
     private String name;

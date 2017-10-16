@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "UserTeam")
+@Table(name = "USER_TEAM")
 public class UserTeam extends PersistentObject {
 
     @ManyToOne(cascade = CascadeType.MERGE)

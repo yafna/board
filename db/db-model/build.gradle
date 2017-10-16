@@ -8,7 +8,7 @@ dependencies {
         // Annotation processor to generate entity metamodels
         compileOnly 'org.projectlombok:lombok:1.16.8'
         compileOnly "org.hibernate:hibernate-jpamodelgen:5.2.9.Final"
-        compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.9.Final'
+        compileOnly group: 'org.hibernate', name: 'hibernate-core', version: '5.0.12.Final'
         compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
     }
 

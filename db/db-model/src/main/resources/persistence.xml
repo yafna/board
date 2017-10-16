@@ -6,6 +6,8 @@
 
         <class>my.painboard.db.model.User</class>
         <class>my.painboard.db.model.Team</class>
+        <class>my.painboard.db.model.Settings</class>
+        <class>my.painboard.db.model.UserTeam</class>
         <class>my.painboard.db.model.ReportDay</class>
         <class>my.painboard.db.model.Img</class>
         <class>my.painboard.db.model.ReportedAction</class>

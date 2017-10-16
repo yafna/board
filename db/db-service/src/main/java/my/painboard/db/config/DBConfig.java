@@ -4,6 +4,9 @@ package my.painboard.db.config;
 import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+
+import my.painboard.db.service.MyClass;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
@@ -21,69 +24,61 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
 @ComponentScan(basePackages = "my.painboard.db.service")
-@PropertySource("classpath:db.properties")
+//@PropertySource("classpath:db.properties")
 public class DBConfig {
-    @Value("${spring.datasource.url}")
-    private String dbUrl;
-
-    @Value("${spring.datasource.username}")
-    private String dbUser;
-
-    @Value("${spring.datasource.password}")
-    private String dbPassword;
-
-    @Value("${spring.datasource.driverClassName}")
-    private String dbDriver;
-
-
-//    @Bean
-//    public EntityManagerFactory entityManagerFactory() {
+    @Autowired
+    private DataSource dataSource;
+//    @Value("${f.datasource.url}")
+//    private String dbUrl;
 //
-////        LocalContainerEntityManagerFactoryBean factory = null;
-////        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-////        vendorAdapter.setGenerateDdl(true);
-////        vendorAdapter.setShowSql(true);
-//        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-//        return emf;
+//    @Value("${f.datasource.username}")
+//    private String dbUser;
+//
+//    @Value("${f.datasource.password}")
+//    private String dbPassword;
+//
+//    @Value("${f.datasource.driverClassName}")
+//    private String dbDriver;
+//
+//
+//    @Bean
+//    public LocalSessionFactoryBean sessionFactory() {
+////        System.out.println("dataSource.getConnection().get = " + dataSource.getConnection().get);
+//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+//        sessionFactory.setDataSource(dataSource);
+//        sessionFactory.setPackagesToScan("my.painboard.db.service", "my.painboard.db.model");
+//        sessionFactory.setHibernateProperties(additionalProperties());
+//
+//        return sessionFactory;
+//    }
+//
+//    @Bean
+//    public DataSource dataSource() {
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(dbDriver);
+//        dataSource.setUrl(dbUrl);
+//        dataSource.setUsername(dbUser);
+//        dataSource.setPassword(dbPassword);
+//        return dataSource;
+//    }
+//
+//    @Bean
+//    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+//        JpaTransactionManager transactionManager = new JpaTransactionManager();
+//        transactionManager.setEntityManagerFactory(emf);
+//        return transactionManager;
+//    }
+//
+//
+//    Properties additionalProperties() {
+//        Properties properties = new Properties();
+//        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+//        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+//        return properties;
 //    }
 
     @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
-
-    @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("my.painboard.db.service", "my.painboard.db.model");
-        sessionFactory.setHibernateProperties(additionalProperties());
-        return sessionFactory;
-    }
-
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(dbDriver);
-        System.out.println("dbUrl = " + dbUrl);
-        dataSource.setUrl(dbUrl);
-        dataSource.setUsername(dbUser);
-        dataSource.setPassword(dbPassword);
-        return dataSource;
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
-        return transactionManager;
-    }
-
-    Properties additionalProperties() {
-        Properties properties = new Properties();
-//        properties.setProperty("hibernate.hbm2ddl.auto", "save-drop");
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        return properties;
+    public MyClass myClass(){
+        return new MyClass(dataSource);
     }
 }

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "img")
+@Table(name = "IMG")
 public class Img extends PersistentObject {
     @Column(name = "level", nullable = false)
     private Integer level;

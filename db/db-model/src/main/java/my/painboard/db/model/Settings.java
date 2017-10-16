@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Settings")
+@Table(name = "SETTINGS")
 public class Settings extends PersistentObject{
     @Column(name = "editPreviousDays")
     private boolean editPreviousDays;

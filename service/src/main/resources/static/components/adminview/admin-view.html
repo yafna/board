@@ -14,7 +14,7 @@
             <div class="col-md-8">
                 <h4>Settings</h4>
                 <div class="row">
-                    <input type="checkbox" id="editdays" ng-model="self.settings.editPreviousDays" ng-change="actrl.switchEditable()">
+                    <input type="checkbox" id="editdays" ng-checked="actrl.settings.editPreviousDays" ng-click="actrl.switchEditable()">
                     Allow edit previous days
                 </div>
             </div>

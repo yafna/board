@@ -60,8 +60,10 @@ public class CalendarController {
 
     @RequestMapping("/preload")
     public void doprefill() {
+        log.debug("prefill requested");
         List<Settings> list = settingsService.list();
         if (list == null || list.isEmpty()) {
+            log.debug("prefill started");
             settingsService.create();
             String teamid = teamService.create("daas reboot");
             userService.create("N", Arrays.asList(teamid));
@@ -69,8 +71,8 @@ public class CalendarController {
             userService.create("H", Arrays.asList(teamid));
             imgService.create("0.png", 10, "very happy");
             imgService.create("01.png", 9, "happy");
-            imgService.create("02.png", 8, "moderate happy");
-            imgService.create("03.png", 7, "almost happy");
+            imgService.create("02.png", 8, "almost happy");
+            imgService.create("03.png", 7, "moderate happy");
             imgService.create("04.png", 6, "slightly happy");
             imgService.create("1.png", 5, "neutral");
             imgService.create("21.png", 4, "slighty upset");
@@ -83,6 +85,7 @@ public class CalendarController {
             }
             done = true;
         }
+        log.debug("prefill finished images {}", imgService.list().size());
     }
 
     public void fillDays() {

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "reportday")
+@Table(name = "REPORT_DAY")
 public class ReportDay extends PersistentObject {
     @Column(name = "day", nullable = false)
     private int day;

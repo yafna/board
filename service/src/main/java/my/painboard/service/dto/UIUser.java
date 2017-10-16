@@ -1,6 +1,5 @@
 package my.painboard.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,6 @@ public class UIUser {
     private String uuid;
     private String name;
     private String team;
-    @JsonProperty( value = "teamUuids")
     private List<String> teamUuids = new ArrayList<>();
 
     public UIUser(User user, List<Team>  teams) {

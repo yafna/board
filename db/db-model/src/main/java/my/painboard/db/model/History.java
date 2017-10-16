@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "history")
+@Table(name = "HISTORY")
 public class History extends PersistentObject {
     @Column(name = "event")
     private String event;
