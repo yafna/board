@@ -188,6 +188,12 @@ public class CalendarController {
                     statusDay.setStatus(UIStatus.EMPTY);
                 } else if (localDate.plusDays(i).getDayOfYear() == LocalDate.now().getDayOfYear()) {
                     ReportedAction action = reportActionService.getByDayAndUser(user.getUuid(), rd.getUuid());
+                    if (action != null) {
+                        statusDay.setStatus(UIStatus.IMAGE_AND_FILL);
+                        statusDay.setImage(new UIImage(action.getImg()));
+                    } else {
+                        statusDay.setStatus(UIStatus.TOFILL);
+                    }
                 } else {
                     ReportedAction action = reportActionService.getByDayAndUser(user.getUuid(), rd.getUuid());
                     if (isPreviousDaysEditable) {
