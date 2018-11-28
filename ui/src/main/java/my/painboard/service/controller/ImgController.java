@@ -2,13 +2,11 @@ package my.painboard.service.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import my.painboard.db.model.Img;
 import my.painboard.db.service.ImgService;
 import my.painboard.service.dto.ActionResult;
 import my.painboard.service.dto.UIImage;
-import my.painboard.service.filesystem.ImgFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ImgController {
     @Autowired
     private ImgService imgService;
-    @Autowired
-    private ImgFileService fileStore;
 
     @RequestMapping("/list")
     public
@@ -43,9 +39,9 @@ public class ImgController {
     public
     @ResponseBody
     ActionResult modify(@RequestBody UIImage img) {
-        if(img.getUuid() == null) {
+        if (img.getUuid() == null) {
             imgService.create(null, img.getLevel(), img.getDescription());
-        }else {
+        } else {
             imgService.update(img.getUuid(), null, img.getLevel(), img.getDescription());
         }
         return new ActionResult(true, "Seems that ok");
@@ -62,7 +58,7 @@ public class ImgController {
     @RequestMapping("/updateDescripton/{uuid}/{newdesc}")
     public
     @ResponseBody
-    ActionResult updateDescripton(@PathVariable String uuid,@PathVariable String newdesc) {
+    ActionResult updateDescripton(@PathVariable String uuid, @PathVariable String newdesc) {
         imgService.updateDescription(uuid, newdesc);
         return new ActionResult(true, "Seems that ok");
     }

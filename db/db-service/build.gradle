@@ -13,7 +13,6 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.9.Final'
     compile group: 'org.hibernate', name:'hibernate-entitymanager', version: '5.2.9.Final'
     compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.11.1.RELEASE'
-//    compile "javax.transaction:javax.transaction-api:1.2"
 
     compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '1.5.7.RELEASE'
     testCompile group: 'junit', name: 'junit', version: '4.12'
